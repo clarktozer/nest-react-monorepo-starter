@@ -1,0 +1,28 @@
+{
+    "name": "@monorepo/root",
+    "private": true,
+    "version": "1.0.0",
+    "description": "A monorepo example using NestJS, CRA, and a CASL package as the shared library.",
+    "scripts": {},
+    "author": "Clark Tozer <clarkwtozer@gmail.com>",
+    "license": "MIT",
+    "workspaces": {
+        "packages": [
+            "apps/*",
+            "libs/*"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/clarktozer/nest-react-starter.git"
+    },
+    "bugs": {
+        "url": "https://github.com/clarktozer/nest-react-starter/issues"
+    },
+    "homepage": "https://github.com/clarktozer/nest-react-starter#readme",
+    "keywords": [
+        "nestjs",
+        "react",
+        "monorepo"
+    ]
+}

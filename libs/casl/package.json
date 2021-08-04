@@ -1,0 +1,17 @@
+{
+    "name": "@monorepo/casl",
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
+    "main": "lib/index.js",
+    "types": "./lib",
+    "scripts": {
+        "build": "tsc",
+        "start:dev": "tsc --watch"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^4.3.5"
+    }
+}

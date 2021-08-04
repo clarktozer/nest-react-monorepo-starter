@@ -1,0 +1,28 @@
+import * as Joi from 'joi';
+
+export const ConfigValidationSchema = Joi.object({
+  APP_HOST: Joi.string().default('localhost'),
+  APP_PORT: Joi.number().default(3000),
+  APP_PREFIX: Joi.string().default('api'),
+  DATABASE_TYPE: Joi.string().default('postgres'),
+  DATABASE_HOST: Joi.string().default('localhost'),
+  DATABASE_NAME: Joi.string().required(),
+  DATABASE_USER: Joi.string().required(),
+  DATABASE_PASSWORD: Joi.string().required(),
+  DATABASE_PORT: Joi.number().default(5432),
+  SESSION_COOKIE_KEY: Joi.string().default('sid'),
+  SESSION_SECRET: Joi.string().default('secret'),
+  REDIS_HOST: Joi.string().default('localhost'),
+  REDIS_PORT: Joi.number().default(6379),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
+  GOOGLE_CALLBACK_URL: Joi.string().required(),
+  FACEBOOK_CLIENT_ID: Joi.string().required(),
+  FACEBOOK_CLIENT_SECRET: Joi.string().required(),
+  FACEBOOK_CALLBACK_URL: Joi.string().required(),
+  LINKEDIN_CLIENT_ID: Joi.string().required(),
+  LINKEDIN_CLIENT_SECRET: Joi.string().required(),
+  LINKEDIN_CALLBACK_URL: Joi.string().required(),
+  CSRF_COOKIE_KEY: Joi.string().default('csrf'),
+  CSRF_SESSION_KEY: Joi.string().default('csrfSecret'),
+});
