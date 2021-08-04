@@ -13,5 +13,8 @@
     "license": "ISC",
     "devDependencies": {
         "typescript": "^4.3.5"
+    },
+    "dependencies": {
+        "@casl/ability": "^5.3.1"
     }
 }
