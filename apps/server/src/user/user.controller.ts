@@ -19,7 +19,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('admins')
-  @Authorized(ability => ability.can(Action.Manage, Subject.All))
+  @Authorized(ability => ability.can(Action.Manage, Subject.Users))
   findAllAdmins() {
     return this.userService.findAllAdmins();
   }
