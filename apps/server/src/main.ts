@@ -38,7 +38,7 @@ async function bootstrap() {
       secret: configService.get<string>('session.secret'),
       resave: false,
       saveUninitialized: false,
-      name: configService.get<string>('session.key'),
+      name: configService.get<string>('session.cookie'),
       cookie: {
         httpOnly: true,
         sameSite: false,

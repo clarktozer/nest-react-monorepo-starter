@@ -8,6 +8,7 @@ import { Home } from "./Home";
 import { Login } from "./Login";
 import { NotAuthorized } from "./NotAuthorized";
 import { NotFound } from "./NotFound";
+import { User } from "./User";
 import { Users } from "./Users";
 
 export const Routes: FC = () => (
@@ -42,6 +43,9 @@ export const Routes: FC = () => (
         >
             <Users />
         </AuthorizedRoute>
+        <Route exact path="/user/:id">
+            <User />
+        </Route>
         <Route exact path="/oauth">
             <AuthRedirect />
         </Route>

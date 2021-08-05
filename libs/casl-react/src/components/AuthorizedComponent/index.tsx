@@ -11,7 +11,7 @@ export const AuthorizedComponent: FC<AuthorizedComponentProps> = ({
     const ability = useAuthorization();
 
     const authorized = useMemo(
-        () => isAuthorized(ability, permissions),
+        () => (ability ? isAuthorized(ability, permissions) : false),
         [ability, permissions]
     );
 

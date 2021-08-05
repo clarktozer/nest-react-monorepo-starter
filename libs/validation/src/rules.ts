@@ -1,7 +1,7 @@
 import { Ability, AbilityBuilder } from "@casl/ability";
 import { Action, AppAbility, AuthorizationMap, Role, Subject } from "./types";
 
-export const defineRules = (role?: Role, ability?: AppAbility) => {
+export const defineRules = (role: Role = Role.Reader, ability?: AppAbility) => {
     const { can, build, rules } = new AbilityBuilder<AppAbility>(Ability);
 
     defineRulesForRole(can, role);

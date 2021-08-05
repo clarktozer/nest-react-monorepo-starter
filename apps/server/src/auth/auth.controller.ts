@@ -53,7 +53,8 @@ export class AuthController {
     request.logout();
     request.session.destroy(() => {
       response
-        .clearCookie(this.configService.get('session.key'))
+        .clearCookie(this.configService.get('session.cookie'))
+        .clearCookie(this.configService.get('csrf.cookie'))
         .sendStatus(200);
     });
   }

@@ -13,7 +13,7 @@ export const Configuration = () => ({
     name: process.env.DATABASE_NAME,
   },
   session: {
-    key: process.env.SESSION_COOKIE_KEY,
+    cookie: process.env.SESSION_COOKIE_KEY,
     secret: process.env.SESSION_SECRET,
     redis: {
       host: process.env.REDIS_HOST,
