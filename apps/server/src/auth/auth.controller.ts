@@ -1,3 +1,4 @@
+import { registerUserSchema } from '@monorepo/validation';
 import {
   Body,
   ClassSerializerInterceptor,
@@ -8,10 +9,12 @@ import {
   Res,
   UseGuards,
   UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { AntiForgeryGuard } from '../csrf/csrf.guard';
+import { YupValidationPipe } from '../pipes/yup.pipe';
 import { RegisterUserDto } from '../user/dto/registerUserDto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local/local.guard';
@@ -27,6 +30,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @UsePipes(new YupValidationPipe(registerUserSchema))
   register(@Body() data: RegisterUserDto) {
     return this.authService.register(data);
   }

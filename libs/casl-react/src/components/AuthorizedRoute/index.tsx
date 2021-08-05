@@ -9,10 +9,12 @@ export const AuthorizedRoute: FC<AuthorizedRouteProps> = ({
     redirectTo = "/",
     ...rest
 }) => (
-    <AuthorizedComponent
-        permissions={permissions}
-        redirectTo={<Redirect to={redirectTo} />}
-    >
-        <Route {...rest}>{children}</Route>
-    </AuthorizedComponent>
+    <Route {...rest}>
+        <AuthorizedComponent
+            permissions={permissions}
+            redirectTo={<Redirect to={redirectTo} />}
+        >
+            {children}
+        </AuthorizedComponent>
+    </Route>
 );

@@ -21,8 +21,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@monorepo/casl": "1.0.0",
     "@casl/ability": "^5.3.1",
+    "@monorepo/casl": "1.0.0",
+    "@monorepo/validation": "1.0.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^8.0.0",
@@ -49,7 +50,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.34"
+    "typeorm": "^0.2.34",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
