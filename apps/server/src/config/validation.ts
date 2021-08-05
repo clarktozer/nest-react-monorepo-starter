@@ -4,6 +4,7 @@ export const ConfigValidationSchema = Joi.object({
   APP_HOST: Joi.string().default('localhost'),
   APP_PORT: Joi.number().default(3000),
   APP_PREFIX: Joi.string().default('api'),
+  CLIENT_APP_URL: Joi.string().required(),
   DATABASE_TYPE: Joi.string().default('postgres'),
   DATABASE_HOST: Joi.string().default('localhost'),
   DATABASE_NAME: Joi.string().required(),

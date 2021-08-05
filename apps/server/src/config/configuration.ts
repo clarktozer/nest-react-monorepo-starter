@@ -3,6 +3,7 @@ export const Configuration = () => ({
   host: process.env.APP_HOST,
   port: parseInt(process.env.APP_PORT, 10),
   prefix: process.env.APP_PREFIX,
+  clientAppUrl: process.env.CLIENT_APP_URL,
   database: {
     type: process.env.DATABASE_TYPE,
     host: process.env.DATABASE_HOST,

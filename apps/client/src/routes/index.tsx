@@ -42,7 +42,7 @@ export const Routes: FC = () => (
         >
             <Users />
         </AuthorizedRoute>
-        <Route exact path="/auth-redirect">
+        <Route exact path="/oauth">
             <AuthRedirect />
         </Route>
         <Route exact path="/not-authorized">

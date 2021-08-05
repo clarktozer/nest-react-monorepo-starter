@@ -1,25 +1,20 @@
-import {
-  ClassSerializerInterceptor,
-  Controller,
-  Get,
-  Req,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
-import { RequestWithUser } from '../request.interface';
+import { Response } from 'express';
 import { FacebookAuthGuard } from './facebook.guard';
 
 @Controller('auth/facebook')
 @UseGuards(FacebookAuthGuard)
-@UseInterceptors(ClassSerializerInterceptor)
 export class FacebookAuthController {
+  constructor(private readonly configService: ConfigService) {}
+
   @Get()
   async auth() {}
 
   @ApiExcludeEndpoint()
   @Get('redirect')
-  redirect(@Req() request: RequestWithUser) {
-    return request.user;
+  redirect(@Res() response: Response) {
+    return response.redirect(`${this.configService.get('clientAppUrl')}/oauth`);
   }
 }
