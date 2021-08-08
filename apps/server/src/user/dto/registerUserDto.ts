@@ -9,4 +9,7 @@ export class RegisterUserDto {
 
   @ApiProperty()
   password: string;
+
+  @ApiProperty()
+  confirmPassword: string;
 }

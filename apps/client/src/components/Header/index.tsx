@@ -47,7 +47,7 @@ export const Header: FC<HeaderProps> = ({ onToggleTheme, isDarkTheme }) => {
 
     const handleGoToProfile = () => {
         if (user) {
-            history.push(`/user/${user.id}`);
+            history.push("/profile");
         }
 
         handleMenuClose();

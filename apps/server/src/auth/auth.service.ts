@@ -15,12 +15,10 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
     try {
-      const newUser = await this.usersService.register({
+      await this.usersService.register({
         ...user,
         password: hashedPassword,
       });
-
-      return newUser;
     } catch (error) {
       throw new BadRequestException();
     }

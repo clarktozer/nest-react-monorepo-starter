@@ -13,7 +13,7 @@ export const HeaderSkeleton = () => {
                     edge="start"
                     color="inherit"
                 >
-                    <Icon>hotel</Icon>
+                    <Icon>home</Icon>
                 </IconButton>
             </Toolbar>
         </AppBar>

@@ -15,6 +15,6 @@ export class GoogleAuthController {
   @ApiExcludeEndpoint()
   @Get('redirect')
   redirect(@Res() response: Response) {
-    return response.redirect(`${this.configService.get('clientAppUrl')}/oauth`);
+    return response.redirect(this.configService.get('clientAppUrl'));
   }
 }

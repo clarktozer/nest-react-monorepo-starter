@@ -22,7 +22,12 @@ export class UserService {
   }
 
   async register(userData: RegisterUserDto) {
-    const newUser = this.usersRepository.create(userData);
+    const { email, name, password } = userData;
+    const newUser = this.usersRepository.create({
+      email,
+      name,
+      password,
+    });
     await this.usersRepository.save(newUser);
 
     return newUser;

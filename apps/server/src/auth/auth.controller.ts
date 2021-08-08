@@ -4,6 +4,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  HttpStatus,
   InternalServerErrorException,
   Post,
   Req,
@@ -31,8 +32,8 @@ export class AuthController {
 
   @Post('register')
   @UsePipes(new YupValidationPipe(registerUserSchema))
-  register(@Body() data: RegisterUserDto) {
-    return this.authService.register(data);
+  async register(@Body() data: RegisterUserDto) {
+    await this.authService.register(data);
   }
 
   @UseGuards(LocalAuthGuard)
@@ -62,7 +63,7 @@ export class AuthController {
       response
         .clearCookie(this.configService.get('session.cookie'))
         .clearCookie(this.configService.get('csrf.cookie'))
-        .sendStatus(200);
+        .sendStatus(HttpStatus.NO_CONTENT);
     });
   }
 }

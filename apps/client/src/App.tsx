@@ -1,31 +1,36 @@
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { defineRules } from "@monorepo/casl";
+import { useAuthorization } from "@monorepo/casl-react";
+import axios from "axios";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useCookie, useMount } from "react-use";
-import { useAuthorization } from "../../../libs/casl-react/lib";
-import { defineRules } from "../../../libs/casl/lib";
-import { Header } from "./components";
+import { useDispatch, useSelector } from "react-redux";
+import { useAsyncFn, useCookie, useMount } from "react-use";
+import { Header, HeaderSkeleton } from "./components";
 import { DarkTheme, LightTheme, ThemeType } from "./constants";
 import { Routes } from "./routes";
-import { getLoggedInUser } from "./state";
+import { getLoggedInUser, setUser, User } from "./state";
 
 export const App = () => {
+    const dispatch = useDispatch();
     const ability = useAuthorization();
     const user = useSelector(getLoggedInUser);
     const [themeCookie, updateCookie] = useCookie("theme");
     const isDarkTheme = themeCookie === ThemeType.Dark;
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
+    const [{ loading }, getUser] = useAsyncFn(async () => {
+        const { data } = await axios.get<User>("/api/auth");
+        dispatch(setUser(data?.id ? data : null));
+    });
+
     useMount(() => {
-        //call /auth
-        //if user comes back set in state
-        //setting in state will trigger authz to generate
+        getUser();
     });
 
     useEffect(() => {
         defineRules(user?.role, ability);
-    }, [user]);
+    }, [user, ability]);
 
     const onToggleTheme = () => {
         updateCookie(isDarkTheme ? ThemeType.Light : ThemeType.Dark);
@@ -43,11 +48,17 @@ export const App = () => {
                     flexDirection: "column"
                 }}
             >
-                <Header
-                    isDarkTheme={isDarkTheme}
-                    onToggleTheme={onToggleTheme}
-                />
-                <Routes />
+                {loading ? (
+                    <HeaderSkeleton />
+                ) : (
+                    <>
+                        <Header
+                            isDarkTheme={isDarkTheme}
+                            onToggleTheme={onToggleTheme}
+                        />
+                        <Routes />
+                    </>
+                )}
             </div>
         </ThemeProvider>
     );
