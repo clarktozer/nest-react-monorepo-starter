@@ -3,7 +3,9 @@
     "private": true,
     "version": "1.0.0",
     "description": "A monorepo example using NestJS, CRA, and a CASL package as the shared library.",
-    "scripts": {},
+    "scripts": {
+        "build:libs": "yarn workspace @monorepo/casl build && yarn workspace @monorepo/casl-react build && yarn workspace @monorepo/validation build"
+    },
     "author": "Clark Tozer <clarkwtozer@gmail.com>",
     "license": "MIT",
     "workspaces": {

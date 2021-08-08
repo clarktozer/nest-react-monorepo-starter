@@ -12,7 +12,11 @@ export class AntiForgeryMiddleware implements NestMiddleware {
     const secret = tokens.secretSync();
     const token = tokens.create(secret);
 
-    response.cookie(this.configService.get<string>('csrf.cookie'), token);
+    response.cookie(this.configService.get<string>('csrf.cookie'), token, {
+      httpOnly: true,
+      sameSite: false,
+      secure: !this.configService.get<boolean>('development'),
+    });
     request.session[this.configService.get<string>('csrf.session')] = secret;
 
     next();

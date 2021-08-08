@@ -4,6 +4,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  InternalServerErrorException,
   Post,
   Req,
   Res,
@@ -13,7 +14,6 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
-import { AntiForgeryGuard } from '../csrf/csrf.guard';
 import { YupValidationPipe } from '../pipes/yup.pipe';
 import { RegisterUserDto } from '../user/dto/registerUserDto';
 import { AuthService } from './auth.service';
@@ -42,16 +42,23 @@ export class AuthController {
   }
 
   @Get()
-  @UseGuards(SessionGuard, AntiForgeryGuard)
   async me(@Req() request: RequestWithUser) {
-    return request.user;
+    if (request.isAuthenticated()) {
+      return request.user;
+    } else {
+      return null;
+    }
   }
 
   @Post('logout')
   @UseGuards(SessionGuard)
   logout(@Req() request: RequestWithUser, @Res() response: Response) {
     request.logout();
-    request.session.destroy(() => {
+    request.session.destroy(err => {
+      if (err) {
+        throw new InternalServerErrorException();
+      }
+
       response
         .clearCookie(this.configService.get('session.cookie'))
         .clearCookie(this.configService.get('csrf.cookie'))
