@@ -16,10 +16,11 @@ import { UserModule } from './user/user.module';
       cache: true,
       load: [Configuration],
       validationSchema: ConfigValidationSchema,
+      
     }),
     DatabaseModule,
     UserModule,
-    AuthModule,
+    AuthModule.,
     CaslModule,
     CsrfModule,
   ],

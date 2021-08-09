@@ -1,7 +1,8 @@
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, UseFilters, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { Response } from 'express';
+import { OAuthExceptionFilter } from '../auth.filter';
 import { LinkedinAuthGuard } from './linkedin.guard';
 
 @Controller('auth/linkedin')
@@ -14,6 +15,7 @@ export class LinkedinAuthController {
 
   @ApiExcludeEndpoint()
   @Get('redirect')
+  @UseFilters(OAuthExceptionFilter)
   redirect(@Res() response: Response) {
     return response.redirect(this.configService.get('clientAppUrl'));
   }

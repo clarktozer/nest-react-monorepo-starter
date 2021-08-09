@@ -35,7 +35,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setLoading }) => {
 
     useEffect(() => {
         setLoading(loading);
-    }, [loading]);
+    }, [loading, setLoading]);
 
     const onSignIn = (values: LoginUserDto) => {
         signIn(values);
