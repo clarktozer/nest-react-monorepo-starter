@@ -62,6 +62,12 @@ export class UserService {
     return this.usersRepository.find();
   }
 
+  async findAllReaders() {
+    return this.usersRepository.find({
+      role: Role.Reader,
+    });
+  }
+
   async findAllAdmins() {
     return this.usersRepository.find({
       role: Role.Admin,

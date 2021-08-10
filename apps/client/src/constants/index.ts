@@ -6,7 +6,7 @@ export enum ThemeType {
     Light = "light"
 }
 
-export const ThemeCookie = "hhtheme";
+export const THEME_COOKIE = "theme";
 
 export const DarkTheme = createTheme({
     palette: {

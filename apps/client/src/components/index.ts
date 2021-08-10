@@ -5,3 +5,4 @@ export * from "./Header";
 export * from "./HeaderSkeleton";
 export * from "./OverlaySpinner";
 export * from "./Page";
+export * from "./PrivateRoute";

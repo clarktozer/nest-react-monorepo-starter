@@ -6,8 +6,8 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAsyncFn, useCookie, useMount } from "react-use";
-import { Header, HeaderSkeleton } from "./components";
-import { DarkTheme, LightTheme, ThemeType } from "./constants";
+import { CenterSpinner, Header, HeaderSkeleton } from "./components";
+import { DarkTheme, LightTheme, ThemeType, THEME_COOKIE } from "./constants";
 import { Routes } from "./routes";
 import { getLoggedInUser, setUser, User } from "./state";
 
@@ -15,14 +15,20 @@ export const App = () => {
     const dispatch = useDispatch();
     const ability = useAuthorization();
     const user = useSelector(getLoggedInUser);
-    const [themeCookie, updateCookie] = useCookie("theme");
+    const [themeCookie, updateCookie] = useCookie(THEME_COOKIE);
     const isDarkTheme = themeCookie === ThemeType.Dark;
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
-    const [{ loading }, getUser] = useAsyncFn(async () => {
-        const { data } = await axios.get<User>("/api/auth");
-        dispatch(setUser(data?.id ? data : null));
-    });
+    const [{ loading }, getUser] = useAsyncFn(
+        async () => {
+            const { data } = await axios.get<User>("/api/auth");
+            dispatch(setUser(data?.id ? data : null));
+        },
+        [],
+        {
+            loading: true
+        }
+    );
 
     useMount(() => {
         getUser();
@@ -49,7 +55,10 @@ export const App = () => {
                 }}
             >
                 {loading ? (
-                    <HeaderSkeleton />
+                    <>
+                        <HeaderSkeleton />
+                        <CenterSpinner />
+                    </>
                 ) : (
                     <>
                         <Header

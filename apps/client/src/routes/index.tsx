@@ -2,6 +2,7 @@ import { Action, Subject } from "@monorepo/casl";
 import { AuthorizedRoute } from "@monorepo/casl-react";
 import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "../components/PrivateRoute";
 import { Admins } from "./Admins";
 import { Home } from "./Home";
 import { Login } from "./Login";
@@ -46,9 +47,9 @@ export const Routes: FC = () => (
         >
             <Users />
         </AuthorizedRoute>
-        <Route exact path="/profile">
+        <PrivateRoute exact path="/profile">
             <Profile />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/not-authorized">
             <NotAuthorized />
         </Route>

@@ -14,7 +14,9 @@ import axios from "axios";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import { useAsyncFn } from "react-use";
 import { clearUser, getLoggedInUser } from "../../state";
+import { ErrorBanner } from "../ErrorBanner";
 import { useStyles } from "./style";
 import { HeaderProps } from "./types";
 
@@ -24,17 +26,17 @@ export const Header: FC<HeaderProps> = ({ onToggleTheme, isDarkTheme }) => {
     const history = useHistory();
     const user = useSelector(getLoggedInUser);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const menuId = "primary-menu";
-    const mobileMenuId = "primary-menu-mobile";
+
+    const [{ error }, logout] = useAsyncFn(async () => {
+        await axios.post("/api/auth/logout");
+        dispatch(clearUser());
+    });
 
     const handleLogOut = async () => {
         handleMenuClose();
-        await axios.post("/api/auth/logout");
-        dispatch(clearUser());
+        logout();
     };
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,14 +53,6 @@ export const Header: FC<HeaderProps> = ({ onToggleTheme, isDarkTheme }) => {
         }
 
         handleMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
     };
 
     const avatar = user && (
@@ -79,12 +73,6 @@ export const Header: FC<HeaderProps> = ({ onToggleTheme, isDarkTheme }) => {
         >
             Sign In
         </Button>
-    );
-
-    const mobileProfile = avatar || (
-        <IconButton color="inherit" component={RouterLink} to="/login">
-            <Icon>login</Icon>
-        </IconButton>
     );
 
     const themeButton = (
@@ -126,61 +114,36 @@ export const Header: FC<HeaderProps> = ({ onToggleTheme, isDarkTheme }) => {
         </Menu>
     );
 
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem>{themeButton}</MenuItem>
-            <MenuItem
-                className={classes.mobileAvatar}
-                onClick={user ? handleProfileMenuOpen : undefined}
-            >
-                {mobileProfile}
-            </MenuItem>
-        </Menu>
-    );
-
     return (
-        <AppBar position="sticky" color="inherit" className={classes.appBar}>
-            <Toolbar>
-                <IconButton
-                    className={classes.menuButton}
-                    edge="start"
-                    color="inherit"
-                    component={RouterLink}
-                    to="/"
-                >
-                    <Icon>home</Icon>
-                </IconButton>
-                <div className={classes.grow} />
-                <div className={classes.sectionDesktop}>
-                    <Tooltip title="Toggle light/dark theme">
-                        {themeButton}
-                    </Tooltip>
-
-                    {desktopProfile}
-                </div>
-                <div className={classes.sectionMobile}>
+        <>
+            <AppBar
+                position="sticky"
+                color="inherit"
+                className={classes.appBar}
+            >
+                <Toolbar>
                     <IconButton
-                        className={classes.more}
-                        aria-label="show more"
-                        aria-controls={mobileMenuId}
-                        aria-haspopup="true"
-                        onClick={handleMobileMenuOpen}
+                        className={classes.menuButton}
+                        edge="start"
                         color="inherit"
+                        component={RouterLink}
+                        to="/"
                     >
-                        <Icon>more_horiz</Icon>
+                        <Icon>home</Icon>
                     </IconButton>
-                </div>
-            </Toolbar>
-            {renderMobileMenu}
-            {renderMenu}
-        </AppBar>
+                    <div className={classes.grow} />
+                    <div>
+                        <Tooltip title="Toggle light/dark theme">
+                            {themeButton}
+                        </Tooltip>
+                        {desktopProfile}
+                    </div>
+                </Toolbar>
+                {renderMenu}
+            </AppBar>
+            {error && (
+                <ErrorBanner description="Sorry! We weren't able to log you out. Please try again later!" />
+            )}
+        </>
     );
 };

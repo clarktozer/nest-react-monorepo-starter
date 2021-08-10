@@ -15,6 +15,8 @@ export class OAuthExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    response.redirect(`${this.configService.get('clientAppUrl')}?error=true`);
+    response.redirect(
+      `${this.configService.get('clientAppUrl')}/login?error=true`,
+    );
   }
 }

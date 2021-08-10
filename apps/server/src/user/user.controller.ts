@@ -26,8 +26,8 @@ export class UserController {
 
   @Get()
   @Authorized(ability => ability.can(Action.Read, Subject.Users))
-  findAll() {
-    return this.userService.findAll();
+  findAllReaders() {
+    return this.userService.findAllReaders();
   }
 
   @Get(':id')
