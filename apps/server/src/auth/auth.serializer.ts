@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
-import { User } from '../user/user.entity';
+import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class AuthSerializer extends PassportSerializer {
     super();
   }
 
-  serializeUser(user: User, done: CallableFunction) {
+  serializeUser(user: UserEntity, done: CallableFunction) {
     done(null, user.id);
   }
 

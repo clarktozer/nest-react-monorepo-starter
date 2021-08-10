@@ -7,6 +7,7 @@ import { FacebookAuthGuard } from './facebook.guard';
 
 @Controller('auth/facebook')
 @UseGuards(FacebookAuthGuard)
+@UseFilters(OAuthExceptionFilter)
 export class FacebookAuthController {
   constructor(private readonly configService: ConfigService) {}
 
@@ -15,7 +16,6 @@ export class FacebookAuthController {
 
   @ApiExcludeEndpoint()
   @Get('redirect')
-  @UseFilters(OAuthExceptionFilter)
   redirect(@Res() response: Response) {
     return response.redirect(this.configService.get('clientAppUrl'));
   }

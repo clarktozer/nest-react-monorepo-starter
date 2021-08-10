@@ -17,6 +17,8 @@ import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { YupValidationPipe } from '../pipes/yup.pipe';
 import { RegisterUserDto } from '../user/dto/registerUserDto';
+import { User } from '../user/user.decorator';
+import { UserEntity } from '../user/user.entity';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local/local.guard';
 import { RequestWithUser } from './request.interface';
@@ -38,8 +40,8 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Req() request: RequestWithUser) {
-    return request.user;
+  async login(@User() user: UserEntity) {
+    return user;
   }
 
   @Get()

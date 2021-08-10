@@ -1,10 +1,10 @@
 import { defineRules } from '@monorepo/casl';
 import { Injectable } from '@nestjs/common';
-import { User } from '../user/user.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class CaslAbilityFactory {
-  createForUser(user: User) {
+  createForUser(user: UserEntity) {
     return defineRules(user.role);
   }
 }

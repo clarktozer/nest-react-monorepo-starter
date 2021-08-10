@@ -4,13 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/createUserDto';
 import { RegisterUserDto } from './dto/registerUserDto';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
   async getByEmail(email: string) {

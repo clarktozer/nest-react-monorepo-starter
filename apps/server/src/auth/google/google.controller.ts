@@ -7,6 +7,7 @@ import { GoogleAuthGuard } from './google.guard';
 
 @Controller('auth/google')
 @UseGuards(GoogleAuthGuard)
+@UseFilters(OAuthExceptionFilter)
 export class GoogleAuthController {
   constructor(private readonly configService: ConfigService) {}
 
@@ -15,7 +16,6 @@ export class GoogleAuthController {
 
   @ApiExcludeEndpoint()
   @Get('redirect')
-  @UseFilters(OAuthExceptionFilter)
   redirect(@Res() response: Response) {
     return response.redirect(this.configService.get('clientAppUrl'));
   }
