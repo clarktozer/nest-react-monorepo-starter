@@ -5,8 +5,11 @@ import React, { FC } from "react";
 import { useAsync } from "react-use";
 import { CenterSpinner, ErrorPage, Page } from "../../components";
 import { User } from "../../state";
+import { useStyles } from "./style";
 
 export const Users: FC = () => {
+    const classes = useStyles();
+
     const { loading, error, value } = useAsync(async () => {
         const { data } = await axios.get<User[]>("/api/user");
 
@@ -27,12 +30,7 @@ export const Users: FC = () => {
                 Users
             </Typography>
             {value?.map(user => (
-                <div
-                    key={user.id}
-                    style={{
-                        marginBottom: "16px"
-                    }}
-                >
+                <div key={user.id} className={classes.reader}>
                     <Typography>Name: {user.name}</Typography>
                     <Typography>Email: {user.email}</Typography>
                     <Typography>

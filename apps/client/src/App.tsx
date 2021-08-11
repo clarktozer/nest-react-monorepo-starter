@@ -10,8 +10,10 @@ import { CenterSpinner, Header, HeaderSkeleton } from "./components";
 import { DarkTheme, LightTheme, ThemeType, THEME_COOKIE } from "./constants";
 import { Routes } from "./routes";
 import { getLoggedInUser, setUser, User } from "./state";
+import { useStyles } from "./style";
 
 export const App = () => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const ability = useAuthorization();
     const user = useSelector(getLoggedInUser);
@@ -45,15 +47,7 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <div
-                style={{
-                    position: "relative",
-                    minHeight: "100vh",
-                    display: "flex",
-                    flex: "auto",
-                    flexDirection: "column"
-                }}
-            >
+            <div className={classes.appContainer}>
                 {loading ? (
                     <>
                         <HeaderSkeleton />

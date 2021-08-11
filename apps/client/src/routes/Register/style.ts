@@ -18,5 +18,8 @@ export const useStyles = makeStyles(theme => ({
         maxWidth: "24rem",
         textAlign: "center",
         position: "relative"
+    },
+    form: {
+        marginTop: theme.spacing(2)
     }
 }));

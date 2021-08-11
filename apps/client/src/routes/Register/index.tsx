@@ -60,11 +60,7 @@ export const Register: FC = () => {
                     {loading && <OverlaySpinner />}
                     <CardContent>
                         <Icon color="inherit">home</Icon>
-                        <div
-                            style={{
-                                marginTop: "16px"
-                            }}
-                        >
+                        <div className={classes.form}>
                             {isRunning ? (
                                 <>
                                     <Typography>

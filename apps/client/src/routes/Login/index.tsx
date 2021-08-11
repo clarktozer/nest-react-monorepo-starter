@@ -37,10 +37,7 @@ export const Login: FC = () => {
                             <SocialLogins onClick={onClick} />
                             <Divider
                                 variant="middle"
-                                style={{
-                                    marginTop: "16px",
-                                    marginBottom: "16px"
-                                }}
+                                className={classes.divider}
                             />
                             <LoginForm setLoading={setLoggingIn} />
                         </CardContent>
