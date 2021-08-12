@@ -16,6 +16,7 @@ A monorepo starter with NestJS and React with yarn workspaces
     -   CASL
     -   Yup
     -   Formik
+    -   Material UI
 -   server
     -   NestJS
     -   Local Auth
