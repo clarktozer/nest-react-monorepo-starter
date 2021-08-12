@@ -10,9 +10,24 @@ A monorepo starter with NestJS and React with yarn workspaces
 ## Apps
 
 -   client
-    -   A React application
+    -   React
+    -   Redux
+    -   React Router
+    -   CASL
+    -   Yup
+    -   Formik
 -   server
-    -   A NestJS api
+    -   NestJS
+    -   Local Auth
+    -   Google Auth
+    -   Facebook Auth
+    -   LinkedIn Auth
+    -   Redis for sessions
+    -   CSRF session tokens
+    -   CASL for authorization
+    -   Yup schema validation of requests
+    -   TypeORM (PostgreSQL)
+    -   Swagger docs
 
 ## Shared Libs
 
