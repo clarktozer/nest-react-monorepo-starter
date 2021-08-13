@@ -45,7 +45,7 @@ A monorepo starter with NestJS and React with yarn workspaces
 $ yarn
 ```
 
-Then add your config to the servers environment variables by creating a .env file at the serve app level (see readme in the server app).
+Then add your config to the servers environment variables by creating a .env file at the server app level (see readme in the server app).
 
 ## Build Libs
 
